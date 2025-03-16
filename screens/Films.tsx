@@ -1,21 +1,26 @@
 // src/screens/Films.tsx
-
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
-import { Text, View, StyleSheet, Button, FlatList, TouchableOpacity } from "react-native";
-import { fetchTranslatedFilmsData, FilmsApiResponse, Film } from "../services/swapiService";
+import { View, StyleSheet, Text } from "react-native";
+import CommonList from "../components/ui/CommonList";
+import { fetchTranslatedFilmsData, Film } from "../services/swapiService";
 
 const Films = () => {
   const navigation = useNavigation();
   const [films, setFilms] = useState<Film[]>([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [totalItems, setTotalItems] = useState(0);
   const [nextPage, setNextPage] = useState<string | null>(null);
   const [prevPage, setPrevPage] = useState<string | null>(null);
-  const [currentPage, setCurrentPage] = useState<string>("https://swapi.py4e.com/api/films/");
+  const [currentPage, setCurrentPage] = useState<string>(
+    "https://swapi.py4e.com/api/films/"
+  );
 
   const getFilms = async (url: string) => {
     try {
-      const data: FilmsApiResponse = await fetchTranslatedFilmsData(url);
+      const data = await fetchTranslatedFilmsData(url);
       setFilms(data.results);
+      setTotalItems(data.count);
       setNextPage(data.next);
       setPrevPage(data.previous);
     } catch (error) {
@@ -23,30 +28,32 @@ const Films = () => {
     }
   };
 
+    useEffect(() => {
+      const baseUrl = "https://swapi.py4e.com/api/films/";
+      const newUrl = searchTerm ? `${baseUrl}?search=${searchTerm}` : baseUrl;
+      setCurrentPage(newUrl);
+    }, [searchTerm]);
+
   useEffect(() => {
     getFilms(currentPage);
   }, [currentPage]);
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Películas de Star Wars</Text>
-      <FlatList
+    <View className="flex-1 bg-black p-4">
+      <CommonList<Film>
         data={films}
-        keyExtractor={(item, index) => index.toString()}
-        renderItem={({ item }) => (
-          <TouchableOpacity
-            onPress={() => navigation.navigate("Details", { data: item, type: "film" })}
-          >
-            <View style={styles.itemContainer}>
-              <Text style={styles.item}>{item.titulo}</Text>
-            </View>
-          </TouchableOpacity>
-        )}
+        titleKey="título"
+        onPrev={() => prevPage && setCurrentPage(prevPage)}
+        onNext={() => nextPage && setCurrentPage(nextPage)}
+        hasPrev={!!prevPage}
+        hasNext={!!nextPage}
+        type="film"
+        searchPlaceholder="Buscar película..."
+        onSearch={setSearchTerm}
+        currentSearchTerm={searchTerm}
+        totalItems={totalItems}
+        currentPageUrl={currentPage}
       />
-      <View style={styles.buttonContainer}>
-        <Button title="Anterior" onPress={() => prevPage && setCurrentPage(prevPage)} disabled={!prevPage} />
-        <Button title="Siguiente" onPress={() => nextPage && setCurrentPage(nextPage)} disabled={!nextPage} />
-      </View>
     </View>
   );
 };
@@ -54,33 +61,14 @@ const Films = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
     padding: 20,
     paddingTop: 40,
   },
   title: {
     fontSize: 22,
     fontWeight: "bold",
-    marginBottom: 10,
-  },
-  itemContainer: {
-    width: "100%",
-    backgroundColor: "#f9f9f9",
-    padding: 10,
-    marginVertical: 5,
-    borderRadius: 5,
-    borderWidth: 1,
-    borderColor: "#ccc",
-  },
-  item: {
-    fontSize: 18,
-    fontWeight: "bold",
-  },
-  buttonContainer: {
-    flexDirection: "row",
-    marginTop: 10,
-    justifyContent: "space-between",
-    width: "100%",
+    marginBottom: 20,
+    textAlign: "center",
   },
 });
 

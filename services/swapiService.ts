@@ -1,6 +1,3 @@
-// src/services/swapiService.ts
-
-// Tipo y función para People (ya definidos)
 export type Person = {
   nombre: string;
   altura: string;
@@ -17,10 +14,19 @@ export type PeopleApiResponse = {
   results: Person[];
 };
 
-export async function fetchTranslatedPeopleData(url: string): Promise<PeopleApiResponse> {
+export async function fetchTranslatedPeopleData(
+  url: string,
+  searchTerm?: string
+): Promise<PeopleApiResponse> {
   try {
-    const response = await fetch(url);
+    const urlWithSearch = new URL(url);
+    if (searchTerm) {
+      urlWithSearch.searchParams.set("search", searchTerm);
+    }
+
+    const response = await fetch(urlWithSearch.toString());
     const data = await response.json();
+    
     const translatedResults: Person[] = data.results.map((person: any) => ({
       nombre: person.name,
       altura: person.height,
@@ -29,6 +35,7 @@ export async function fetchTranslatedPeopleData(url: string): Promise<PeopleApiR
       "color de piel": person.skin_color,
       "color de ojos": person.eye_color,
     }));
+    
     return { ...data, results: translatedResults };
   } catch (error) {
     console.error("Error fetching and translating people:", error);
@@ -38,12 +45,11 @@ export async function fetchTranslatedPeopleData(url: string): Promise<PeopleApiR
 
 // Tipo y función para Films
 export type Film = {
-  titulo: string;
+  "título": string;
   episodio: number;
-  introduccion: string;
   director: string;
   productor: string;
-  fecha_estreno: string;
+  "fecha de estreno": string;
 };
 
 export type FilmsApiResponse = {
@@ -53,18 +59,27 @@ export type FilmsApiResponse = {
   results: Film[];
 };
 
-export async function fetchTranslatedFilmsData(url: string): Promise<FilmsApiResponse> {
+export async function fetchTranslatedFilmsData(
+  url: string,
+  searchTerm?: string
+): Promise<FilmsApiResponse> {
   try {
-    const response = await fetch(url);
+    const urlWithSearch = new URL(url);
+    if (searchTerm) {
+      urlWithSearch.searchParams.set("search", searchTerm);
+    }
+
+    const response = await fetch(urlWithSearch.toString());
     const data = await response.json();
+    
     const translatedResults: Film[] = data.results.map((film: any) => ({
-      titulo: film.title,
+      "título": film.title,
       episodio: film.episode_id,
-      introduccion: film.opening_crawl,
       director: film.director,
       productor: film.producer,
-      fecha_estreno: film.release_date,
+      "fecha de estreno": film.release_date,
     }));
+    
     return { ...data, results: translatedResults };
   } catch (error) {
     console.error("Error fetching and translating films:", error);
@@ -75,13 +90,13 @@ export async function fetchTranslatedFilmsData(url: string): Promise<FilmsApiRes
 // Tipo y función para Planets
 export type Planet = {
   nombre: string;
-  periodo_rotacion: string;
-  periodo_orbital: string;
-  diametro: string;
+  "periodo de rotacion": string;
+  "periodo orbital": string;
+  "díametro": string;
   clima: string;
   gravedad: string;
   terreno: string;
-  agua_superficie: string;
+  "superficie de agua": string;
   poblacion: string;
 };
 
@@ -92,21 +107,31 @@ export type PlanetsApiResponse = {
   results: Planet[];
 };
 
-export async function fetchTranslatedPlanetsData(url: string): Promise<PlanetsApiResponse> {
+export async function fetchTranslatedPlanetsData(
+  url: string,
+  searchTerm?: string
+): Promise<PlanetsApiResponse> {
   try {
-    const response = await fetch(url);
+    const urlWithSearch = new URL(url);
+    if (searchTerm) {
+      urlWithSearch.searchParams.set("search", searchTerm);
+    }
+
+    const response = await fetch(urlWithSearch.toString());
     const data = await response.json();
+    
     const translatedResults: Planet[] = data.results.map((planet: any) => ({
       nombre: planet.name,
-      periodo_rotacion: planet.rotation_period,
-      periodo_orbital: planet.orbital_period,
-      diametro: planet.diameter,
+      "periodo de rotacion": planet.rotation_period,
+      "periodo orbital": planet.orbital_period,
+      "díametro": planet.diameter,
       clima: planet.climate,
       gravedad: planet.gravity,
       terreno: planet.terrain,
-      agua_superficie: planet.surface_water,
+      "superficie de agua": planet.surface_water,
       poblacion: planet.population,
     }));
+    
     return { ...data, results: translatedResults };
   } catch (error) {
     console.error("Error fetching and translating planets:", error);
