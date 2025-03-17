@@ -25,7 +25,7 @@ function PeopleStackNavigator() {
                 headerStyle: {
                     backgroundColor: isDark ? '#111' : '#000',
                 },
-                headerTintColor: '#FFE81F',
+                headerTintColor: isDark ? '#FFE81F' : '#3498db',
                 headerTitleStyle: {
                     fontWeight: 'bold',
                 },
@@ -40,7 +40,7 @@ function PeopleStackNavigator() {
                 options={{
                     title: "Personajes",
                     headerTitle: () => (
-                        <Text className="text-yellow-400 text-xl font-bold">PERSONAJES</Text>
+                        <Text className={`${isDark ? 'text-yellow-400' : 'text-blue-400' } text-xl font-bold`}>PERSONAJES</Text>
                     )
                 }}
             />
@@ -50,7 +50,7 @@ function PeopleStackNavigator() {
                 options={{
                     title: "Detalles",
                     headerTitle: () => (
-                        <Text className="text-yellow-400 text-xl font-bold">DETALLES</Text>
+                        <Text className={`${isDark ? 'text-yellow-400' : 'text-blue-400' } text-xl font-bold`}>DETALLES</Text>
                     )
                 }}
             />
@@ -70,7 +70,7 @@ function PlanetsStackNavigator() {
                 headerStyle: {
                     backgroundColor: isDark ? '#111' : '#000',
                 },
-                headerTintColor: '#FFE81F',
+                headerTintColor: isDark ? '#FFE81F' : '#3498db',
                 headerTitleStyle: {
                     fontWeight: 'bold',
                 },
@@ -85,7 +85,7 @@ function PlanetsStackNavigator() {
                 options={{
                     title: "Planetas",
                     headerTitle: () => (
-                        <Text className="text-yellow-400 text-xl font-bold">PLANETAS</Text>
+                        <Text className={`${isDark ? 'text-yellow-400' : 'text-blue-400' } text-xl font-bold`}>PLANETAS</Text>
                     )
                 }}
             />
@@ -95,7 +95,7 @@ function PlanetsStackNavigator() {
                 options={{
                     title: "Detalles",
                     headerTitle: () => (
-                        <Text className="text-yellow-400 text-xl font-bold">DETALLES</Text>
+                        <Text className={`${isDark ? 'text-yellow-400' : 'text-blue-400' } text-xl font-bold`}>DETALLES</Text>
                     )
                 }}
             />
@@ -115,7 +115,7 @@ function FilmsStackNavigator() {
                 headerStyle: {
                     backgroundColor: isDark ? '#111' : '#000',
                 },
-                headerTintColor: '#FFE81F',
+                headerTintColor: isDark ? '#FFE81F' : '#3498db',
                 headerTitleStyle: {
                     fontWeight: 'bold',
                 },
@@ -130,7 +130,7 @@ function FilmsStackNavigator() {
                 options={{
                     title: "Películas",
                     headerTitle: () => (
-                        <Text className="text-yellow-400 text-xl font-bold">PELÍCULAS</Text>
+                        <Text className={`${isDark ? 'text-yellow-400' : 'text-blue-400' } text-xl font-bold`}>PELÍCULAS</Text>
                     )
                 }}
             />
@@ -140,7 +140,7 @@ function FilmsStackNavigator() {
                 options={{
                     title: "Detalles",
                     headerTitle: () => (
-                        <Text className="text-yellow-400 text-xl font-bold">DETALLES</Text>
+                        <Text className={`${isDark ? 'text-yellow-400' : 'text-blue-400' } text-xl font-bold`}>DETALLES</Text>
                     )
                 }}
             />
@@ -158,7 +158,7 @@ function MyTabs() {
         <Tab.Navigator
             initialRouteName="People"
             screenOptions={{
-                tabBarActiveTintColor: '#FFE81F',
+                tabBarActiveTintColor: isDark ? '#FFE81F' : '#3498db',
                 tabBarInactiveTintColor: isDark ? '#aaa' : '#888',
                 tabBarStyle: {
                     backgroundColor: isDark ? '#222' : '#111',

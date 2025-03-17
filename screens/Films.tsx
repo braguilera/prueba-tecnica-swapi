@@ -5,6 +5,8 @@ import { fetchTranslatedFilmsData, Film } from "../services/swapiService";
 import LoadingAnimation from "components/ui/LoadingAnimation";
 import { SearchInput } from "components/ui/SearchInput";
 import { getEndpoint } from "services/swapiEndpoints";
+import DarkMode from "components/ui/DarkMode";
+import EmptyState from "components/ui/EmptyState";
 
 const Films = () => {
   const [films, setFilms] = useState<Film[]>([]);
@@ -42,6 +44,7 @@ const Films = () => {
 
   return (
     <View className="flex-1 bg-blue-50 dark:bg-gray-900 p-4">
+      <DarkMode/>
       <Text className="text-3xl font-bold text-center text-blue-600 dark:text-yellow-400">
         CRÓNICAS DE UNA GALAXIA MUY MUY LEJANA
       </Text>
@@ -57,7 +60,7 @@ const Films = () => {
         <LoadingAnimation message="Recuperando archivos de la Antigua República..." />
       ) : (
         films.length === 0 ? (
-          <Text className="text-3xl font-bold text-center text-blue-600 dark:text-yellow-400">No hay películas</Text>
+          <EmptyState message="No se encontraron películas registradas."/>
         ) : (
           <CommonList<Film>
             data={films}

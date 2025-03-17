@@ -14,7 +14,7 @@ const DarkMode = () => {
         className={`text-xl font-bold mb-2 ${isDark ? 'text-yellow-400' : 'text-gray-800'}`}
         style={{ fontFamily: 'System', letterSpacing: 1 }}
       >
-        STAR WARS
+        SWAPI WARS
       </Text>
       
       {/* Línea separadora */}

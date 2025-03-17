@@ -2,6 +2,7 @@ import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
 import { Text, View, ScrollView } from "react-native";
 import { RouteProp, useRoute } from "@react-navigation/native";
 import { useColorScheme } from 'nativewind';
+import DarkMode from 'components/ui/DarkMode';
 
 type DetailsParams = {
   data: any;
@@ -47,6 +48,7 @@ const Details = () => {
 
   return (
     <ScrollView className="flex-1 p-4 bg-blue-50 dark:bg-gray-900">
+      <DarkMode/>
       <View className="items-center mt-6 mb-12">
         {type === 'person' && <FontAwesome5 name="jedi" size={100} color={isDark ? "#FFE81F" : "#3498db"} />}
         {type === 'planet' && <FontAwesome5 name="globe" size={100} color={isDark ? "#FFE81F" : "#3498db"} />}
@@ -62,17 +64,17 @@ const Details = () => {
         </Text>
       </View>
   
-      <View className="bg-blue-100 dark:bg-gray-800 border border-blue-300 dark:border-yellow-500 rounded-lg p-4 mb-3">
+      <View className="bg-blue-100 dark:bg-gray-800 border border-blue-300 dark:border-yellow-500 rounded-lg p-4 mb-6">
         {keys.map((key, index) => (
           <View 
             key={key} 
-            className="p-4 mb-3 grid grid-cols-2 grid-flow-row"
+            className="p-4 mb-3 flex flex-row flex-wrap justify-between"
             style={{
               borderColor: isDark ? "#FFE81F" : "#3498db",
               borderTopWidth: index !== 0 ? 1 : 0
             }}
           >
-            <Text className="text-blue-700 dark:text-yellow-400 font-bold">
+            <Text className="text-blue-700 dark:text-yellow-400 font-bold ">
               {key.toUpperCase()}:
             </Text>
             <Text className="ml-2 text-blue-800 dark:text-gray-200">

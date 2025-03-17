@@ -6,6 +6,7 @@ import LoadingAnimation from "components/ui/LoadingAnimation";
 import { SearchInput } from "components/ui/SearchInput";
 import { getEndpoint } from "services/swapiEndpoints";
 import DarkMode from "components/ui/DarkMode";
+import EmptyState from "components/ui/EmptyState";
 
 const Planets = () => {
   const [planets, setPlanets] = useState<Planet[]>([]);
@@ -43,7 +44,7 @@ const Planets = () => {
 
   return (
     <View className="flex-1 bg-blue-50 dark:bg-gray-900 p-4">
-      <DarkMode></DarkMode>
+      <DarkMode/>
       <Text className="text-3xl font-bold text-center text-blue-600 dark:text-yellow-400">
         CARTOGRAFÍA DE MUNDOS CONOCIDOS
       </Text>
@@ -58,7 +59,11 @@ const Planets = () => {
       {loading ? (
         <LoadingAnimation message="Inicializando cartografía imperial..." />
       ) : (
-        <CommonList<Planet>
+          planets.length===0 
+          ?
+          <EmptyState message="No se encontraron planetas."/>
+          :
+          <CommonList<Planet>
           data={planets}
           titleKey="nombre"
           onPrev={() => prevPage && setCurrentPage(prevPage)}

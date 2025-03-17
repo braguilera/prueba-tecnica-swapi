@@ -6,6 +6,8 @@ import LoadingAnimation from "components/ui/LoadingAnimation";
 import { SearchInput } from "components/ui/SearchInput";
 import { getEndpoint } from "services/swapiEndpoints";
 import { useColorScheme } from "nativewind";
+import DarkMode from "components/ui/DarkMode";
+import EmptyState from "components/ui/EmptyState";
 
 const People = () => {
   const [people, setPeople] = useState<Person[]>([]);
@@ -45,6 +47,7 @@ const People = () => {
 
   return (
     <View className="flex-1 bg-blue-50 dark:bg-gray-900 p-4">
+      <DarkMode/>
       <Text className="text-3xl font-bold text-center text-blue-600 dark:text-yellow-400">
         ARCHIVOS DE LA FUERZA VIVA
       </Text>
@@ -59,6 +62,10 @@ const People = () => {
       {loading ? (
         <LoadingAnimation message="Buscando personajes en los archivos imperiales..." />
       ) : (
+        people.length===0 
+        ?
+        <EmptyState message="No se encontraron personas."/>
+        :
         <CommonList<Person>
           data={people}
           titleKey="nombre"

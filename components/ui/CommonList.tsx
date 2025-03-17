@@ -1,8 +1,7 @@
 import { useNavigation } from "@react-navigation/native";
-import React, { useState } from "react";
-import { FlatList, View, TouchableOpacity, Text } from "react-native";
+import { useState } from "react";
+import { FlatList, View, Text } from "react-native";
 import PaginationButtons from "./PaginationButtons";
-import { SearchInput } from "./SearchInput";
 import CustomButton from "./CustomButton";
 
 interface CommonListProps<T> {
@@ -17,15 +16,8 @@ interface CommonListProps<T> {
   currentPageUrl: string;
 }
 
-const CommonList = <T extends {}>({
-  data, titleKey, onPrev, onNext, hasPrev, hasNext, type, totalItems, currentPageUrl,}: CommonListProps<T>) => {
+const CommonList = <T extends {}>({data, titleKey, onPrev, onNext, hasPrev, hasNext, type, totalItems, currentPageUrl}: CommonListProps<T>) => {
   const navigation = useNavigation();
-  const [searchTerm, setSearchTerm] = useState("");
-
-  const filteredData = data.filter(item => {
-    const value = String(item[titleKey]).toLowerCase();
-    return value.includes(searchTerm.toLowerCase());
-  });
 
   const getCurrentPageNumber = (url: string): number => {
     const pageParam = new URL(url).searchParams.get('page');
@@ -38,7 +30,7 @@ const CommonList = <T extends {}>({
   return (
     <View className="flex-1 bg-blue-50 dark:bg-gray-900 p-4">
       <FlatList
-        data={filteredData}
+        data={data}
         keyExtractor={(_, index) => index.toString()}
         className="w-full"
         renderItem={({ item }) => (
