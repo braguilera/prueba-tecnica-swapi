@@ -1,8 +1,8 @@
-import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { View, Text } from "react-native";
+import { Text, View } from "react-native";
+import { useColorScheme } from 'nativewind';
 
 import People from "screens/People";
 import Planets from "screens/Planets";
@@ -16,18 +16,21 @@ import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 // Stack para People
 const PeopleStack = createNativeStackNavigator();
 function PeopleStackNavigator() {
+    const { colorScheme } = useColorScheme();
+    const isDark = colorScheme === 'dark';
+    
     return (
         <PeopleStack.Navigator initialRouteName="PeopleScreen"
             screenOptions={{
                 headerStyle: {
-                    backgroundColor: '#000',
+                    backgroundColor: isDark ? '#111' : '#000',
                 },
                 headerTintColor: '#FFE81F',
                 headerTitleStyle: {
                     fontWeight: 'bold',
                 },
                 contentStyle: {
-                    backgroundColor: '#000',
+                    backgroundColor: isDark ? '#111' : '#000',
                 }
             }}
         >
@@ -58,18 +61,21 @@ function PeopleStackNavigator() {
 // Stack para Planets
 const PlanetsStack = createNativeStackNavigator();
 function PlanetsStackNavigator() {
+    const { colorScheme } = useColorScheme();
+    const isDark = colorScheme === 'dark';
+    
     return (
         <PlanetsStack.Navigator initialRouteName="PlanetsScreen"
             screenOptions={{
                 headerStyle: {
-                    backgroundColor: '#000',
+                    backgroundColor: isDark ? '#111' : '#000',
                 },
                 headerTintColor: '#FFE81F',
                 headerTitleStyle: {
                     fontWeight: 'bold',
                 },
                 contentStyle: {
-                    backgroundColor: '#000',
+                    backgroundColor: isDark ? '#111' : '#000',
                 }
             }}
         >
@@ -100,18 +106,21 @@ function PlanetsStackNavigator() {
 // Stack para Films
 const FilmsStack = createNativeStackNavigator();
 function FilmsStackNavigator() {
+    const { colorScheme } = useColorScheme();
+    const isDark = colorScheme === 'dark';
+    
     return (
         <FilmsStack.Navigator initialRouteName="FilmsScreen"
             screenOptions={{
                 headerStyle: {
-                    backgroundColor: '#000',
+                    backgroundColor: isDark ? '#111' : '#000',
                 },
                 headerTintColor: '#FFE81F',
                 headerTitleStyle: {
                     fontWeight: 'bold',
                 },
                 contentStyle: {
-                    backgroundColor: '#000',
+                    backgroundColor: isDark ? '#111' : '#000',
                 }
             }}
         >
@@ -139,17 +148,21 @@ function FilmsStackNavigator() {
     );
 }
 
+//Tab de navegacion
 const Tab = createBottomTabNavigator();
 function MyTabs() {
+    const { colorScheme } = useColorScheme();
+    const isDark = colorScheme === 'dark';
+    
     return (
         <Tab.Navigator
             initialRouteName="People"
             screenOptions={{
                 tabBarActiveTintColor: '#FFE81F',
-                tabBarInactiveTintColor: '#888',
+                tabBarInactiveTintColor: isDark ? '#aaa' : '#888',
                 tabBarStyle: {
-                    backgroundColor: '#111',
-                    borderTopColor: '#333',
+                    backgroundColor: isDark ? '#222' : '#111',
+                    borderTopColor: isDark ? '#444' : '#333',
                     height: 60,
                     paddingBottom: 8,
                     paddingTop: 8,
@@ -197,10 +210,20 @@ function MyTabs() {
     );
 }
 
+// Creamos un contenedor con tema para la navegación
+function ThemedNavigation() {
+    const { colorScheme } = useColorScheme();
+    return (
+        <View className={`flex-1 ${colorScheme === 'dark' ? 'bg-gray-900' : 'bg-blue-50'}`}>
+            <MyTabs />
+        </View>
+    );
+}
+
 export default function Navigation() {
     return (
         <NavigationContainer>
-            <MyTabs />
+            <ThemedNavigation />
         </NavigationContainer>
     );
 }

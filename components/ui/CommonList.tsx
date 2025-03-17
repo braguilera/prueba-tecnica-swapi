@@ -1,9 +1,9 @@
-// src/components/CommonList.tsx
 import { useNavigation } from "@react-navigation/native";
 import React, { useState } from "react";
 import { FlatList, View, TouchableOpacity, Text } from "react-native";
 import PaginationButtons from "./PaginationButtons";
 import { SearchInput } from "./SearchInput";
+import CustomButton from "./CustomButton";
 
 interface CommonListProps<T> {
   data: T[];
@@ -13,27 +13,12 @@ interface CommonListProps<T> {
   hasPrev: boolean;
   hasNext: boolean;
   type: "film" | "person" | "planet";
-  searchPlaceholder: string;
-  onSearch: (term: string) => void;
-  currentSearchTerm: string;
   totalItems: number;
   currentPageUrl: string;
 }
 
 const CommonList = <T extends {}>({
-  data,
-  titleKey,
-  onPrev,
-  onNext,
-  hasPrev,
-  hasNext,
-  type,
-  searchPlaceholder,
-  onSearch,
-  currentSearchTerm,
-  totalItems,
-  currentPageUrl,
-}: CommonListProps<T>) => {
+  data, titleKey, onPrev, onNext, hasPrev, hasNext, type, totalItems, currentPageUrl,}: CommonListProps<T>) => {
   const navigation = useNavigation();
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -51,41 +36,36 @@ const CommonList = <T extends {}>({
   const currentPage = getCurrentPageNumber(currentPageUrl);
 
   return (
-    <View className="flex-1 bg-black p-4">
-      <SearchInput
-        value={currentSearchTerm}
-        onChange={onSearch} // Ahora actualiza el estado padre
-        placeholder={searchPlaceholder}
-      />
-      
+    <View className="flex-1 bg-blue-50 dark:bg-gray-900 p-4">
       <FlatList
         data={filteredData}
         keyExtractor={(_, index) => index.toString()}
         className="w-full"
         renderItem={({ item }) => (
-          <TouchableOpacity
+          <CustomButton
+            variant="listItem"
+            className="mb-3 active:scale-95 active:opacity-80"
             onPress={() => navigation.navigate("Details", { data: item, type })}
-            className="mb-3"
           >
-            <View className="bg-gray-900 border border-yellow-500 rounded-lg p-4 shadow-lg">
-              <Text className="text-yellow-400 font-bold text-lg">
-                {String(item[titleKey as keyof typeof item])}
-              </Text>
-            </View>
-          </TouchableOpacity>
+            <Text className="text-blue-700 dark:text-yellow-400 font-bold text-lg">
+              {String(item[titleKey as keyof typeof item])}
+            </Text>
+          </CustomButton>
         )}
       />
       
-      <View className="flex-row justify-between mt-4">
-        <PaginationButtons
-          onPrev={onPrev}
-          onNext={onNext}
-          prevPage={hasPrev}
-          nextPage={hasNext}
-          currentPage={currentPage}
-          totalPages={totalPages}
-        />
-      </View>
+      {totalItems > 10 &&
+        <View className="flex-row justify-between mt-4">
+          <PaginationButtons
+            onPrev={onPrev}
+            onNext={onNext}
+            prevPage={hasPrev}
+            nextPage={hasNext}
+            currentPage={currentPage}
+            totalPages={totalPages}
+          />
+        </View>
+      }
     </View>
   );
 };

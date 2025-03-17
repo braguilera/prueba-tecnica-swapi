@@ -1,22 +1,24 @@
-// src/screens/People.tsx
-import { useNavigation } from "@react-navigation/native";
-import React, { useEffect, useState } from "react";
-import { View, StyleSheet, Text } from "react-native";
+import { useEffect, useState } from "react";
+import { View, Text, Switch } from "react-native";
 import CommonList from "../components/ui/CommonList";
 import { fetchTranslatedPeopleData, Person } from "../services/swapiService";
+import LoadingAnimation from "components/ui/LoadingAnimation";
+import { SearchInput } from "components/ui/SearchInput";
+import { getEndpoint } from "services/swapiEndpoints";
+import { useColorScheme } from "nativewind";
 
 const People = () => {
-  const navigation = useNavigation();
   const [people, setPeople] = useState<Person[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [totalItems, setTotalItems] = useState(0);
   const [nextPage, setNextPage] = useState<string | null>(null);
   const [prevPage, setPrevPage] = useState<string | null>(null);
-  const [currentPage, setCurrentPage] = useState<string>(
-    "https://swapi.py4e.com/api/people/"
-  );
+  const [currentPage, setCurrentPage] = useState<string>(getEndpoint('people'));
+  const [loading, setLoading] = useState(false)
+
 
   const getPeople = async (url: string) => {
+    setLoading(true)
     try {
       const data = await fetchTranslatedPeopleData(url);
       setPeople(data.results);
@@ -25,11 +27,14 @@ const People = () => {
       setPrevPage(data.previous);
     } catch (error) {
       console.error("Error fetching people:", error);
+    } finally{
+      setLoading(false)
     }
+    
   };
 
   useEffect(() => {
-    const baseUrl = "https://swapi.py4e.com/api/people/";
+    const baseUrl = getEndpoint('people');
     const newUrl = searchTerm ? `${baseUrl}?search=${searchTerm}` : baseUrl;
     setCurrentPage(newUrl);
   }, [searchTerm]);
@@ -39,37 +44,35 @@ const People = () => {
   }, [currentPage]);
 
   return (
-    <View className="flex-1 bg-black p-4">
-      <CommonList<Person>
-        data={people}
-        titleKey="nombre"
-        onPrev={() => prevPage && setCurrentPage(prevPage)}
-        onNext={() => nextPage && setCurrentPage(nextPage)}
-        hasPrev={!!prevPage}
-        hasNext={!!nextPage}
-        type="person"
-        searchPlaceholder="Buscar personaje..."
-        onSearch={setSearchTerm}
-        currentSearchTerm={searchTerm}
-        totalItems={totalItems}
-        currentPageUrl={currentPage}
+    <View className="flex-1 bg-blue-50 dark:bg-gray-900 p-4">
+      <Text className="text-3xl font-bold text-center text-blue-600 dark:text-yellow-400">
+        ARCHIVOS DE LA FUERZA VIVA
+      </Text>
+      <Text className="text-sm text-center m-2 text-blue-500 dark:text-yellow-200">
+        Registros de seres sensibles de todos los sistemas estelares
+      </Text>
+      <SearchInput
+        value={searchTerm}
+        onChange={setSearchTerm}
+        placeholder="Buscar personaje..."
       />
+      {loading ? (
+        <LoadingAnimation message="Buscando personajes en los archivos imperiales..." />
+      ) : (
+        <CommonList<Person>
+          data={people}
+          titleKey="nombre"
+          onPrev={() => prevPage && setCurrentPage(prevPage)}
+          onNext={() => nextPage && setCurrentPage(nextPage)}
+          hasPrev={!!prevPage}
+          hasNext={!!nextPage}
+          type="person"
+          totalItems={totalItems}
+          currentPageUrl={currentPage}
+        />
+      )}
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 20,
-    paddingTop: 40,
-  },
-  title: {
-    fontSize: 22,
-    fontWeight: "bold",
-    marginBottom: 20,
-    textAlign: "center",
-  },
-});
 
 export default People;

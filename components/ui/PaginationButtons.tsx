@@ -1,6 +1,8 @@
-// src/components/PaginationButtons.tsx
 import React from 'react';
 import { View, TouchableOpacity, Text } from 'react-native';
+import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
+import CustomButton from './CustomButton';
+import { colorScheme, useColorScheme } from 'nativewind';
 
 interface PaginationButtonsProps {
   onPrev: () => void;
@@ -19,33 +21,41 @@ const PaginationButtons: React.FC<PaginationButtonsProps> = ({
   currentPage,
   totalPages,
 }) => {
+    const { colorScheme } = useColorScheme();
+    const isDark = colorScheme === 'dark';
   return (
-    <View className="flex-row justify-between items-center mt-4">
-      <TouchableOpacity 
-        onPress={onPrev} 
+    <View className="flex-row justify-between items-center mt-4 w-full">
+      <CustomButton
+        variant="icon"
+        onPress={onPrev}
         disabled={!prevPage}
-        className={`${prevPage ? 'bg-yellow-500' : 'bg-gray-700'} rounded-lg py-3 px-4`}
+        className="p-2"
       >
-        <Text className={`${prevPage ? 'text-black' : 'text-gray-500'} font-bold`}>
-          Anterior
-        </Text>
-      </TouchableOpacity>
-      
-      <View className="flex items-center">
-        <Text className="text-yellow-400 font-bold">
-          Página {currentPage} de {totalPages}
+        <FontAwesome5 
+          name="chevron-left" 
+          size={12} 
+          color={prevPage ? (isDark ? "#FFE81F" : "#3498db") : "#4B5563"} 
+        />
+      </CustomButton>
+  
+      <View className="bg-blue-100 dark:bg-gray-800 rounded-lg px-6 py-2">
+        <Text className="text-blue-700 dark:text-yellow-400 font-bold text-lg">
+          {currentPage} / {totalPages}
         </Text>
       </View>
-
-      <TouchableOpacity 
-        onPress={onNext} 
+  
+      <CustomButton
+        variant="icon"
+        onPress={onNext}
         disabled={!nextPage}
-        className={`${nextPage ? 'bg-yellow-500' : 'bg-gray-700'} rounded-lg py-3 px-4`}
+        className="p-2"
       >
-        <Text className={`${nextPage ? 'text-black' : 'text-gray-500'} font-bold`}>
-          Siguiente
-        </Text>
-      </TouchableOpacity>
+        <FontAwesome5 
+          name="chevron-right" 
+          size={12} 
+          color={nextPage ? (isDark ? "#FFE81F" : "#3498db") : "#4B5563"} 
+        />
+      </CustomButton>
     </View>
   );
 };
