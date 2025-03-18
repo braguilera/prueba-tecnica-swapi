@@ -49,7 +49,7 @@ const StarWarsText: React.FC<StarWarsTextProps> = ({ text, duration = 35000, del
   });
 
   return (
-    <View className="flex-1 justify-center items-center overflow-hidden w-full">
+    <View className="flex-1 mt-4 justify-center items-center overflow-hidden w-full">
       <Animated.View
         className="absolute"
         style={{
@@ -60,7 +60,7 @@ const StarWarsText: React.FC<StarWarsTextProps> = ({ text, duration = 35000, del
           ]
         }}
       >
-        <Text className={`text-2xl text-center leading-10 shadow-lg ${isDark ? 'text-yellow-400 shadow-yellow-400' : 'text-blue-500 shadow-blue-400'}`}>
+        <Text className={`text-2xl text-center leading-10 shadow-lg ${isDark ? 'text-white shadow-white' : 'text-blue-500 shadow-blue-400'}`}>
           {text}
         </Text>
       </Animated.View>

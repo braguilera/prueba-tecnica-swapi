@@ -1,5 +1,4 @@
-//Type and function for Person
-
+// Type and function for Person
 export type Person = {
   nombre: string;
   altura: string;
@@ -17,7 +16,7 @@ export type PeopleApiResponse = {
   results: Person[];
 };
 
-export async function fetchTranslatedPeopleData( url: string, searchTerm?: string): Promise<PeopleApiResponse> {
+export async function fetchTranslatedPeopleData(url: string, searchTerm?: string): Promise<PeopleApiResponse> {
   try {
     const urlWithSearch = new URL(url);
     if (searchTerm) {
@@ -29,8 +28,8 @@ export async function fetchTranslatedPeopleData( url: string, searchTerm?: strin
     
     const translatedResults: Person[] = data.results.map((person: any) => ({
       nombre: person.name,
-      altura: person.height,
-      peso: person.mass,
+      altura: person.height !== "unknown" ? `${person.height} cm` : "Desconocido",
+      peso: person.mass !== "unknown" ? `${person.mass} kg` : "Desconocido",
       "color de cabello": person.hair_color,
       "color de piel": person.skin_color,
       "color de ojos": person.eye_color,
@@ -44,14 +43,14 @@ export async function fetchTranslatedPeopleData( url: string, searchTerm?: strin
   }
 }
 
-//Type and function for Films
+// Type and function for Film
 export type Film = {
   "título": string;
   episodio: number;
   director: string;
   productor: string;
   "fecha de estreno": string;
-  apertura: string;
+  sinopsis: string;
   personas: string[];
 };
 
@@ -62,7 +61,7 @@ export type FilmsApiResponse = {
   results: Film[];
 };
 
-export async function fetchTranslatedFilmsData( url: string, searchTerm?: string): Promise<FilmsApiResponse> {
+export async function fetchTranslatedFilmsData(url: string, searchTerm?: string): Promise<FilmsApiResponse> {
   try {
     const urlWithSearch = new URL(url);
     if (searchTerm) {
@@ -78,7 +77,7 @@ export async function fetchTranslatedFilmsData( url: string, searchTerm?: string
       director: film.director,
       productor: film.producer,
       "fecha de estreno": film.release_date,
-      apertura: film.opening_crawl,
+      sinopsis: film.opening_crawl,
       personas: film.characters,
     }));
     
@@ -89,12 +88,12 @@ export async function fetchTranslatedFilmsData( url: string, searchTerm?: string
   }
 }
 
-//Type and function for Planets
+// Type and function for Planet
 export type Planet = {
   nombre: string;
   "periodo de rotacion": string;
   "periodo orbital": string;
-  "díametro": string;
+  "diámetro": string;
   clima: string;
   gravedad: string;
   terreno: string;
@@ -110,7 +109,7 @@ export type PlanetsApiResponse = {
   results: Planet[];
 };
 
-export async function fetchTranslatedPlanetsData( url: string, searchTerm?: string): Promise<PlanetsApiResponse> {
+export async function fetchTranslatedPlanetsData(url: string, searchTerm?: string): Promise<PlanetsApiResponse> {
   try {
     const urlWithSearch = new URL(url);
     if (searchTerm) {
@@ -122,17 +121,17 @@ export async function fetchTranslatedPlanetsData( url: string, searchTerm?: stri
     
     const translatedResults: Planet[] = data.results.map((planet: any) => ({
       nombre: planet.name,
-      "periodo de rotacion": planet.rotation_period,
-      "periodo orbital": planet.orbital_period,
-      "díametro": planet.diameter,
+      "periodo de rotacion": planet.rotation_period !== "unknown" ? `${planet.rotation_period} días` : "Desconocido",
+      "periodo orbital": planet.orbital_period !== "unknown" ? `${planet.orbital_period} días` : "Desconocido",
+      "diámetro": planet.diameter !== "unknown" ? `${planet.diameter} km` : "Desconocido",
       clima: planet.climate,
       gravedad: planet.gravity,
       terreno: planet.terrain,
-      "superficie de agua": planet.surface_water,
+      "superficie de agua": planet.surface_water !== "unknown" ? `${planet.surface_water}%` : "Desconocido",
       poblacion: planet.population,
       peliculas: planet.films,
     }));
-    
+
     return { ...data, results: translatedResults };
   } catch (error) {
     console.error("Error fetching and translating planets:", error);
