@@ -17,9 +17,10 @@ interface PaginationButtonsProps {
 const PaginationButtons: React.FC<PaginationButtonsProps> = ({ onPrev, onNext, prevPage, nextPage, currentPage, totalPages,}) => {
     const { colorScheme } = useColorScheme();
     const isDark:boolean = colorScheme === 'dark';
-    
+
   return (
     <View className="flex-row justify-between items-center mt-4 w-full">
+      {/* Left button */}
       <CustomButton
         variant="icon"
         onPress={onPrev}
@@ -33,12 +34,14 @@ const PaginationButtons: React.FC<PaginationButtonsProps> = ({ onPrev, onNext, p
         />
       </CustomButton>
   
+      {/* Pagination number */}
       <View className="bg-blue-100 dark:bg-gray-800 rounded-lg px-6 py-2">
         <Text className="text-blue-700 dark:text-yellow-400 font-bold text-lg">
           {currentPage} / {totalPages}
         </Text>
       </View>
   
+      {/* Right button */}
       <CustomButton
         variant="icon"
         onPress={onNext}

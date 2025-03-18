@@ -1,5 +1,4 @@
 import { useColorScheme } from "nativewind";
-import React from "react";
 import { View, TextInput } from "react-native";
 
 interface SearchInputProps {
@@ -10,7 +9,8 @@ interface SearchInputProps {
 
 export const SearchInput = ({ value, onChange, placeholder }: SearchInputProps) => {
   const { colorScheme } = useColorScheme();
-  const isDark = colorScheme === 'dark';
+  const isDark:boolean = colorScheme === 'dark';
+
   return (
     <View className="mb-4 mx-4">
       <TextInput

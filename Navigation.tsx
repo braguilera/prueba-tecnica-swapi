@@ -13,7 +13,7 @@ import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { FontAwesome5 } from '@expo/vector-icons';
 import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 
-// Stack para People
+// Stack for People
 const PeopleStack = createNativeStackNavigator();
 function PeopleStackNavigator() {
     const { colorScheme } = useColorScheme();
@@ -58,7 +58,7 @@ function PeopleStackNavigator() {
     );
 }
 
-// Stack para Planets
+// Stack for Planets
 const PlanetsStack = createNativeStackNavigator();
 function PlanetsStackNavigator() {
     const { colorScheme } = useColorScheme();
@@ -103,7 +103,7 @@ function PlanetsStackNavigator() {
     );
 }
 
-// Stack para Films
+// Stack for Films
 const FilmsStack = createNativeStackNavigator();
 function FilmsStackNavigator() {
     const { colorScheme } = useColorScheme();
@@ -148,7 +148,7 @@ function FilmsStackNavigator() {
     );
 }
 
-//Tab de navegacion
+//Tabs Navigation
 const Tab = createBottomTabNavigator();
 function MyTabs() {
     const { colorScheme } = useColorScheme();
@@ -210,7 +210,6 @@ function MyTabs() {
     );
 }
 
-// Creamos un contenedor con tema para la navegación
 function ThemedNavigation() {
     const { colorScheme } = useColorScheme();
     const isDark = colorScheme === "dark";

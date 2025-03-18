@@ -20,11 +20,11 @@ const Details = () => {
   const { data, type } = route.params;
   const keys = Object.keys(data);
   const { colorScheme } = useColorScheme();
-  const isDark: boolean = colorScheme === 'dark';
+  const isDark:boolean = colorScheme === 'dark';
 
   const [showPopup, setShowPopup] = useState(false);
 
-  const getRelatedUrls = () => {
+  const getRelatedUrls = ():[] => {
     switch(type) {
       case 'person': return data.peliculas || [];
       case 'planet': return data.peliculas || [];
@@ -33,7 +33,7 @@ const Details = () => {
     }
   };
 
-  // Función para obtener el título según el tipo
+  // Title according to the type.
   const getTitle = ():string => {
     switch(type) {
       case 'person':
@@ -47,7 +47,7 @@ const Details = () => {
     }
   };
 
-  // Función para obtener el subtítulo según el tipo
+  // Subtitle according to the type.
   const getSubtitle = ():string => {
     switch(type) {
       case 'person':
@@ -63,6 +63,7 @@ const Details = () => {
 
   return (
     <ScrollView className="flex-1 p-4 bg-blue-50 dark:bg-gray-900">
+      {/* Icons or opening crawl */}
       <DarkMode/>
       <View className="items-center mt-6 mb-12 relative w-full">
         {type === 'person' && <FontAwesome5 name="jedi" size={100} color={isDark ? "#FFE81F" : "#3498db"} />}
@@ -73,9 +74,8 @@ const Details = () => {
           </View>
         )}
       </View>
-
-
       
+      {/* Title, Subtitle and button to open popup */}
       <View className="mb-6">
         <Text className="text-blue-600 dark:text-yellow-400 text-3xl font-bold text-center font-starjedi">
           {getTitle()}
@@ -98,6 +98,7 @@ const Details = () => {
         />
       </View>
   
+      {/* Content */}
       <View className="bg-blue-100 dark:bg-gray-800 border border-blue-300 dark:border-yellow-400 rounded-lg p-4 mb-10">
         {keys.map((key, index) => (
             (key !== "apertura" && key !== "personas" && key !== "peliculas")  &&
@@ -118,6 +119,7 @@ const Details = () => {
           </View>
         ))}
 
+      {/* Popup */}
       {showPopup && (
         <CommonPopup
           urls={getRelatedUrls()}

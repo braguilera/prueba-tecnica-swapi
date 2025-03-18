@@ -1,3 +1,5 @@
+//Type and function for Person
+
 export type Person = {
   nombre: string;
   altura: string;
@@ -15,10 +17,7 @@ export type PeopleApiResponse = {
   results: Person[];
 };
 
-export async function fetchTranslatedPeopleData(
-  url: string,
-  searchTerm?: string
-): Promise<PeopleApiResponse> {
+export async function fetchTranslatedPeopleData( url: string, searchTerm?: string): Promise<PeopleApiResponse> {
   try {
     const urlWithSearch = new URL(url);
     if (searchTerm) {
@@ -45,7 +44,7 @@ export async function fetchTranslatedPeopleData(
   }
 }
 
-// Tipo y función para Films
+//Type and function for Films
 export type Film = {
   "título": string;
   episodio: number;
@@ -63,10 +62,7 @@ export type FilmsApiResponse = {
   results: Film[];
 };
 
-export async function fetchTranslatedFilmsData(
-  url: string,
-  searchTerm?: string
-): Promise<FilmsApiResponse> {
+export async function fetchTranslatedFilmsData( url: string, searchTerm?: string): Promise<FilmsApiResponse> {
   try {
     const urlWithSearch = new URL(url);
     if (searchTerm) {
@@ -93,7 +89,7 @@ export async function fetchTranslatedFilmsData(
   }
 }
 
-// Tipo y función para Planets
+//Type and function for Planets
 export type Planet = {
   nombre: string;
   "periodo de rotacion": string;
@@ -114,10 +110,7 @@ export type PlanetsApiResponse = {
   results: Planet[];
 };
 
-export async function fetchTranslatedPlanetsData(
-  url: string,
-  searchTerm?: string
-): Promise<PlanetsApiResponse> {
+export async function fetchTranslatedPlanetsData( url: string, searchTerm?: string): Promise<PlanetsApiResponse> {
   try {
     const urlWithSearch = new URL(url);
     if (searchTerm) {

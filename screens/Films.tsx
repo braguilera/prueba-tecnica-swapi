@@ -17,6 +17,7 @@ const Films = () => {
   const [currentPage, setCurrentPage] = useState<string>(getEndpoint('film'));
   const [loading, setLoading] = useState(false)
 
+  // Obtains all the films
   const getFilms = async (url: string) => {
     setLoading(true)
     try {
@@ -44,6 +45,8 @@ const Films = () => {
 
   return (
     <View className="flex-1 bg-blue-50 dark:bg-gray-900 p-4">
+
+      {/* Header */}
       <DarkMode/>
       <Text className="text-3xl font-bold text-center text-blue-600 dark:text-yellow-400">
         CRÓNICAS DE UNA GALAXIA MUY MUY LEJANA
@@ -56,6 +59,8 @@ const Films = () => {
         onChange={setSearchTerm}
         placeholder="Buscar película..."
       />
+
+      {/* Content */}
       {loading ? (
         <LoadingAnimation message="Recuperando archivos de la Antigua República..." />
       ) : (

@@ -12,7 +12,7 @@ const StarWarsText: React.FC<StarWarsTextProps> = ({ text, duration = 35000, del
   const rotateX = useRef(new Animated.Value(0)).current;
   const position = useRef(new Animated.Value(0)).current;
   const { colorScheme } = useColorScheme();
-  const isDark = colorScheme === 'dark';
+  const isDark:boolean = colorScheme === 'dark';
 
   useEffect(() => {
     const animation = Animated.loop(

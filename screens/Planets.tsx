@@ -17,6 +17,7 @@ const Planets = () => {
   const [currentPage, setCurrentPage] = useState<string>(getEndpoint('planet'));
   const [loading, setLoading] = useState(false)
 
+  //Obtain all the planets
   const getPlanets = async (url: string) => {
     setLoading(true)
     try {
@@ -44,6 +45,7 @@ const Planets = () => {
 
   return (
     <View className="flex-1 bg-blue-50 dark:bg-gray-900 p-4">
+      {/* Header */}
       <DarkMode/>
       <Text className="text-3xl font-bold text-center text-blue-600 dark:text-yellow-400">
         CARTOGRAFÍA DE MUNDOS CONOCIDOS
@@ -56,6 +58,8 @@ const Planets = () => {
         onChange={setSearchTerm}
         placeholder="Buscar planeta..."
       />
+
+      {/* Content */}
       {loading ? (
         <LoadingAnimation message="Inicializando cartografía imperial..." />
       ) : (

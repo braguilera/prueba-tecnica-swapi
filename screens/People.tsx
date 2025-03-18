@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
-import { View, Text, Switch } from "react-native";
+import { View, Text } from "react-native";
 import CommonList from "../components/ui/CommonList";
 import { fetchTranslatedPeopleData, Person } from "../services/swapiService";
 import LoadingAnimation from "components/ui/LoadingAnimation";
 import { SearchInput } from "components/ui/SearchInput";
 import { getEndpoint } from "services/swapiEndpoints";
-import { useColorScheme } from "nativewind";
 import DarkMode from "components/ui/DarkMode";
 import EmptyState from "components/ui/EmptyState";
 
@@ -18,7 +17,7 @@ const People = () => {
   const [currentPage, setCurrentPage] = useState<string>(getEndpoint('people'));
   const [loading, setLoading] = useState(false)
 
-
+  //Obtain all the peoples
   const getPeople = async (url: string) => {
     setLoading(true)
     try {
@@ -47,6 +46,7 @@ const People = () => {
 
   return (
     <View className="flex-1 bg-blue-50 dark:bg-gray-900 p-4">
+      {/* Header */}
       <DarkMode/>
       <Text className="text-3xl font-bold text-center text-blue-600 dark:text-yellow-400">
         ARCHIVOS DE LA FUERZA VIVA
@@ -59,6 +59,8 @@ const People = () => {
         onChange={setSearchTerm}
         placeholder="Buscar personaje..."
       />
+
+      {/* Content */}
       {loading ? (
         <LoadingAnimation message="Buscando personajes en los archivos imperiales..." />
       ) : (
