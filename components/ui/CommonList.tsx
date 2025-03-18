@@ -23,8 +23,8 @@ const CommonList = <T extends {}>({data, titleKey, onPrev, onNext, hasPrev, hasN
     return pageParam ? parseInt(pageParam, 10) : 1;
   };
 
-  const totalPages = Math.ceil(totalItems / 10);
-  const currentPage = getCurrentPageNumber(currentPageUrl);
+  const totalPages:number = Math.ceil(totalItems / 10);
+  const currentPage:number = getCurrentPageNumber(currentPageUrl);
 
   return (
     <View className="flex-1 bg-blue-50 dark:bg-gray-900 p-4">

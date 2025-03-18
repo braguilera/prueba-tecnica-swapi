@@ -7,15 +7,12 @@ interface EmptyStateProps {
   message?: string;
 }
 
-const EmptyState: React.FC<EmptyStateProps> = ({
-  message = 'No hay datos disponibles en la galaxia...',
-}) => {
+const EmptyState: React.FC<EmptyStateProps> = ({message = 'No hay datos disponibles en la galaxia...',}) => {
   const { colorScheme } = useColorScheme();
-  const isDark = colorScheme === 'dark';
+  const isDark:boolean = colorScheme === 'dark';
 
   return (
     <View className="flex-1 justify-center items-center gap-4 p-4">
-      {/* Ícono temático de Star Wars */}
       <FontAwesome5
         name="empire"
         size={64}

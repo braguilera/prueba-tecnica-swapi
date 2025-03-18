@@ -4,6 +4,9 @@ import { RouteProp, useRoute } from "@react-navigation/native";
 import { useColorScheme } from 'nativewind';
 import DarkMode from 'components/ui/DarkMode';
 import StarWarsText from 'components/ui/StarWarsText';
+import CustomButton from 'components/ui/CustomButton';
+import CommonPopup from 'components/ui/CommonPopup';
+import { useState } from 'react';
 
 type DetailsParams = {
   data: any;
@@ -18,6 +21,17 @@ const Details = () => {
   const keys = Object.keys(data);
   const { colorScheme } = useColorScheme();
   const isDark: boolean = colorScheme === 'dark';
+
+  const [showPopup, setShowPopup] = useState(false);
+
+  const getRelatedUrls = () => {
+    switch(type) {
+      case 'person': return data.peliculas || [];
+      case 'planet': return data.peliculas || [];
+      case 'film': return data.personas || [];
+      default: return [];
+    }
+  };
 
   // Función para obtener el título según el tipo
   const getTitle = ():string => {
@@ -59,6 +73,8 @@ const Details = () => {
           </View>
         )}
       </View>
+
+
       
       <View className="mb-6">
         <Text className="text-blue-600 dark:text-yellow-400 text-3xl font-bold text-center font-starjedi">
@@ -67,11 +83,24 @@ const Details = () => {
         <Text className="text-sm text-center mt-2 font-starjhol mb-3 text-blue-500 dark:text-yellow-200">
           {getSubtitle()}
         </Text>
+        <CustomButton
+          variant="primary"
+          className="mt-4 mx-auto"
+          onPress={() => setShowPopup(true)}
+          title={
+            type === "film"
+              ? "Ver qué personajes aparecen en esta película"
+              : type === "person"
+                ? "Ver en qué películas aparece este personaje"
+                : "Ver en qué películas aparece este planeta"
+          }
+          
+        />
       </View>
   
-      <View className="bg-blue-100 dark:bg-gray-800 border border-blue-300 dark:border-yellow-400 rounded-lg p-4 ">
+      <View className="bg-blue-100 dark:bg-gray-800 border border-blue-300 dark:border-yellow-400 rounded-lg p-4 mb-10">
         {keys.map((key, index) => (
-            key!=="apertura" &&
+            (key !== "apertura" && key !== "personas" && key !== "peliculas")  &&
           <View 
             key={key} 
             className="p-4 my-1 flex flex-row flex-wrap justify-between"
@@ -88,6 +117,14 @@ const Details = () => {
             </Text>
           </View>
         ))}
+
+      {showPopup && (
+        <CommonPopup
+          urls={getRelatedUrls()}
+          type={type}
+          onClose={() => setShowPopup(false)}
+        />
+      )}
       </View>
     </ScrollView>
   );

@@ -8,7 +8,7 @@ interface LoadingProps {
 
 const LoadingAnimation: React.FC<LoadingProps> = ({ message = 'Buscando en la galaxia...' }) => {
   const { colorScheme } = useColorScheme();
-  const isDark = colorScheme === 'dark';
+  const isDark:boolean = colorScheme === 'dark';
 
   return (
     <View className="flex-1 justify-center items-center gap-4">

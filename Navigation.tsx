@@ -1,7 +1,7 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { Text, View } from "react-native";
+import { StatusBar, Text, View } from "react-native";
 import { useColorScheme } from 'nativewind';
 
 import People from "screens/People";
@@ -213,8 +213,13 @@ function MyTabs() {
 // Creamos un contenedor con tema para la navegación
 function ThemedNavigation() {
     const { colorScheme } = useColorScheme();
+    const isDark = colorScheme === "dark";
     return (
-        <View className={`flex-1 ${colorScheme === 'dark' ? 'bg-gray-900' : 'bg-blue-50'}`}>
+        <View className={`flex-1 ${isDark ? "bg-gray-900" : "bg-blue-50"}`}>
+            <StatusBar
+                barStyle="light-content"
+                backgroundColor={isDark ? "#111" : "#000"} 
+            />
             <MyTabs />
         </View>
     );

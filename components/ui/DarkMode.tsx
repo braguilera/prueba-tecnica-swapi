@@ -1,14 +1,14 @@
-import { Switch, Text, View, Pressable, Image } from "react-native";
+import { Switch, Text, View, Pressable } from "react-native";
 import { useColorScheme } from "nativewind";
 import { FontAwesome5 } from '@expo/vector-icons';
 
 const DarkMode = () => {
   const { colorScheme, toggleColorScheme } = useColorScheme();
-  const isDark = colorScheme === 'dark';
+  const isDark:boolean = colorScheme === 'dark';
 
   return (
     <View className="w-full flex items-center mb-4">
-      {/* Título Star Wars */}
+      {/* Title Swapi Wars*/}
       <Text 
         className={`text-xl font-bold mb-2 ${isDark ? 'text-yellow-400' : 'text-gray-800'}`}
         style={{ fontFamily: 'System', letterSpacing: 1 }}
@@ -16,10 +16,9 @@ const DarkMode = () => {
         SWAPI WARS
       </Text>
       
-      {/* Línea separadora */}
       <View className={`w-32 h-1 rounded-full mb-3 ${isDark ? 'bg-yellow-400' : 'bg-blue-500'}`} />
       
-      {/* Switch de Modo */}
+      {/* Switch Mode */}
       <View className="w-full h-14 flex flex-row justify-center items-center">
         <Pressable 
           onPress={() => isDark && toggleColorScheme()}

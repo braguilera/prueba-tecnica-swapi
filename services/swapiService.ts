@@ -5,6 +5,7 @@ export type Person = {
   "color de cabello": string;
   "color de piel": string;
   "color de ojos": string;
+  peliculas: string[];
 };
 
 export type PeopleApiResponse = {
@@ -34,6 +35,7 @@ export async function fetchTranslatedPeopleData(
       "color de cabello": person.hair_color,
       "color de piel": person.skin_color,
       "color de ojos": person.eye_color,
+      peliculas: person.films,
     }));
     
     return { ...data, results: translatedResults };
@@ -51,6 +53,7 @@ export type Film = {
   productor: string;
   "fecha de estreno": string;
   apertura: string;
+  personas: string[];
 };
 
 export type FilmsApiResponse = {
@@ -80,6 +83,7 @@ export async function fetchTranslatedFilmsData(
       productor: film.producer,
       "fecha de estreno": film.release_date,
       apertura: film.opening_crawl,
+      personas: film.characters,
     }));
     
     return { ...data, results: translatedResults };
@@ -100,6 +104,7 @@ export type Planet = {
   terreno: string;
   "superficie de agua": string;
   poblacion: string;
+  peliculas: string[];
 };
 
 export type PlanetsApiResponse = {
@@ -132,6 +137,7 @@ export async function fetchTranslatedPlanetsData(
       terreno: planet.terrain,
       "superficie de agua": planet.surface_water,
       poblacion: planet.population,
+      peliculas: planet.films,
     }));
     
     return { ...data, results: translatedResults };

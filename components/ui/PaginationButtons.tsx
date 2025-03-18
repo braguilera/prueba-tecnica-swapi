@@ -1,8 +1,8 @@
 import React from 'react';
-import { View, TouchableOpacity, Text } from 'react-native';
+import { View, Text } from 'react-native';
 import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
 
-import { colorScheme, useColorScheme } from 'nativewind';
+import { useColorScheme } from 'nativewind';
 import CustomButton from './CustomButton';
 
 interface PaginationButtonsProps {
@@ -14,16 +14,10 @@ interface PaginationButtonsProps {
   totalPages: number;
 }
 
-const PaginationButtons: React.FC<PaginationButtonsProps> = ({
-  onPrev,
-  onNext,
-  prevPage,
-  nextPage,
-  currentPage,
-  totalPages,
-}) => {
+const PaginationButtons: React.FC<PaginationButtonsProps> = ({ onPrev, onNext, prevPage, nextPage, currentPage, totalPages,}) => {
     const { colorScheme } = useColorScheme();
-    const isDark = colorScheme === 'dark';
+    const isDark:boolean = colorScheme === 'dark';
+    
   return (
     <View className="flex-row justify-between items-center mt-4 w-full">
       <CustomButton
