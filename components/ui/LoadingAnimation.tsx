@@ -1,4 +1,3 @@
-// src/components/Loading.tsx
 import { useColorScheme } from 'nativewind';
 import React from 'react';
 import { View, Text, ActivityIndicator } from 'react-native';

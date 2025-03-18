@@ -1,4 +1,3 @@
-// src/components/CustomButton.tsx
 import React from 'react';
 import { Pressable, Text, View, PressableProps, Platform } from 'react-native';
 

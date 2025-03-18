@@ -1,8 +1,9 @@
 import React from 'react';
 import { View, TouchableOpacity, Text } from 'react-native';
 import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
-import CustomButton from './CustomButton';
+
 import { colorScheme, useColorScheme } from 'nativewind';
+import CustomButton from './CustomButton';
 
 interface PaginationButtonsProps {
   onPrev: () => void;

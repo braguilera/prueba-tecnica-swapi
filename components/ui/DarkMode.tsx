@@ -1,4 +1,3 @@
-import React from "react";
 import { Switch, Text, View, Pressable, Image } from "react-native";
 import { useColorScheme } from "nativewind";
 import { FontAwesome5 } from '@expo/vector-icons';

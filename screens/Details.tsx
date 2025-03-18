@@ -3,6 +3,7 @@ import { Text, View, ScrollView } from "react-native";
 import { RouteProp, useRoute } from "@react-navigation/native";
 import { useColorScheme } from 'nativewind';
 import DarkMode from 'components/ui/DarkMode';
+import StarWarsText from 'components/ui/StarWarsText';
 
 type DetailsParams = {
   data: any;
@@ -16,10 +17,10 @@ const Details = () => {
   const { data, type } = route.params;
   const keys = Object.keys(data);
   const { colorScheme } = useColorScheme();
-  const isDark = colorScheme === 'dark';
+  const isDark: boolean = colorScheme === 'dark';
 
   // Función para obtener el título según el tipo
-  const getTitle = () => {
+  const getTitle = ():string => {
     switch(type) {
       case 'person':
         return "ARCHIVOS BIOGRÁFICOS";
@@ -33,7 +34,7 @@ const Details = () => {
   };
 
   // Función para obtener el subtítulo según el tipo
-  const getSubtitle = () => {
+  const getSubtitle = ():string => {
     switch(type) {
       case 'person':
         return "Datos sensibles de ser vivo registrado";
@@ -49,10 +50,14 @@ const Details = () => {
   return (
     <ScrollView className="flex-1 p-4 bg-blue-50 dark:bg-gray-900">
       <DarkMode/>
-      <View className="items-center mt-6 mb-12">
+      <View className="items-center mt-6 mb-12 relative w-full">
         {type === 'person' && <FontAwesome5 name="jedi" size={100} color={isDark ? "#FFE81F" : "#3498db"} />}
         {type === 'planet' && <FontAwesome5 name="globe" size={100} color={isDark ? "#FFE81F" : "#3498db"} />}
-        {type === 'film' && <FontAwesome5 name="film" size={100} color={isDark ? "#FFE81F" : "#3498db"} />}
+        {type === 'film' && (
+          <View className="w-full h-40 justify-center items-center overflow-hidden">
+            <StarWarsText text={data.apertura}/>
+          </View>
+        )}
       </View>
       
       <View className="mb-6">
@@ -64,11 +69,12 @@ const Details = () => {
         </Text>
       </View>
   
-      <View className="bg-blue-100 dark:bg-gray-800 border border-blue-300 dark:border-yellow-500 rounded-lg p-4 mb-6">
+      <View className="bg-blue-100 dark:bg-gray-800 border border-blue-300 dark:border-yellow-400 rounded-lg p-4 ">
         {keys.map((key, index) => (
+            key!=="apertura" &&
           <View 
             key={key} 
-            className="p-4 mb-3 flex flex-row flex-wrap justify-between"
+            className="p-4 my-1 flex flex-row flex-wrap justify-between"
             style={{
               borderColor: isDark ? "#FFE81F" : "#3498db",
               borderTopWidth: index !== 0 ? 1 : 0

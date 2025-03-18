@@ -1,5 +1,4 @@
 import { useNavigation } from "@react-navigation/native";
-import { useState } from "react";
 import { FlatList, View, Text } from "react-native";
 import PaginationButtons from "./PaginationButtons";
 import CustomButton from "./CustomButton";

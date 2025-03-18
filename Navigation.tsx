@@ -163,7 +163,7 @@ function MyTabs() {
                 tabBarStyle: {
                     backgroundColor: isDark ? '#222' : '#111',
                     borderTopColor: isDark ? '#444' : '#333',
-                    height: 60,
+                    height: 70,
                     paddingBottom: 8,
                     paddingTop: 8,
                 },

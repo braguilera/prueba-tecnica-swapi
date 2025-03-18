@@ -50,6 +50,7 @@ export type Film = {
   director: string;
   productor: string;
   "fecha de estreno": string;
+  apertura: string;
 };
 
 export type FilmsApiResponse = {
@@ -78,6 +79,7 @@ export async function fetchTranslatedFilmsData(
       director: film.director,
       productor: film.producer,
       "fecha de estreno": film.release_date,
+      apertura: film.opening_crawl,
     }));
     
     return { ...data, results: translatedResults };
